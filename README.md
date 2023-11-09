@@ -1,3 +1,4 @@
-1. buat env
-2. instal requierements
-3. di folder server: flask run
+1. cd server
+2. buat env
+3. instal requierements
+4. flask run
