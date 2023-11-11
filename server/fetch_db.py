@@ -1,6 +1,8 @@
 from datetime import datetime
+import json
 from flask import (Flask, Response, jsonify)
 from flask_pymongo import PyMongo
+import pandas as pd
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/db_beautyBrand"
@@ -49,9 +51,13 @@ def get_all_popular(time_start, time_end):
         }
     })
 
+    # amount of document fetched
+    num_docs = 0
+
     data_all_popular = []
 
     for item in data:
+        num_docs += 1
         products = item['Products']
         for product in products:
             data_all_popular.append({
@@ -60,8 +66,11 @@ def get_all_popular(time_start, time_end):
                 'PositivePostCount': product['PositivePostCount'],
                 'NegativePostCount': product['NegativePostCount']
             })
+
+    if num_docs > 1:
+        data_all_popular = json.loads(merge_allBrand_reports(data_all_popular))
     
-    return jsonify({'data_all_popular': data_all_popular})
+    return data_all_popular
 
 def get_own_popular(brand_name, time_start, time_end):
     time_start = datetime.strptime(time_start, "%Y-%m-%dT%H:%M:%S.%fZ")
@@ -75,9 +84,13 @@ def get_own_popular(brand_name, time_start, time_end):
         }
     })
 
+    # amount of document fetched
+    num_docs = 0
+
     data_own_popular = []
 
     for item in data:
+        num_docs += 1
         products = item['Products']
         for product in products:
             data_own_popular.append({
@@ -88,7 +101,10 @@ def get_own_popular(brand_name, time_start, time_end):
                 'NegativePostCount': product['NegativePostCount']
             })
     
-    return jsonify({'data_own_popular': data_own_popular})
+    if num_docs > 1:
+        data_own_popular = json.loads(merge_own_reports(data_own_popular))
+    
+    return data_own_popular
 
 def get_own_product(brand_name):
     data = mongo.db.ownBrandProduct.find({'Brand':brand_name})
@@ -108,10 +124,6 @@ def get_recommendation(brand_name, time_start, time_end):
     data_all_popular = Response.get_json(get_all_popular(time_start, time_end))
     data_own_product = Response.get_json(get_own_product(brand_name))
     data_own_popular = Response.get_json(get_own_popular(brand_name,time_start, time_end))
-
-    data_all_popular = data_all_popular['data_all_popular']
-    data_own_product = data_own_product['data_own_product']
-    data_own_popular = data_own_popular['data_own_popular']
 
     product_to_produce = get_product_to_procude(data_all_popular, data_own_product)
     product_to_remove = get_product_to_remove(data_own_popular)
@@ -173,3 +185,37 @@ def set_rank_zero(data):
         item['rank_sum']=0
     
     return data
+
+def merge_own_reports(data):
+    data_df = pd.DataFrame(data)
+    merged_df = data_df.groupby('ProductName').agg({
+        'Brand': 'first',
+        'Category': 'first',
+        'NegativePostCount': 'sum',
+        'PositivePostCount': 'sum'
+    }).reset_index()
+
+    merged_df = merged_df.sort_values(by='PositivePostCount', ascending=False)
+
+    merged_data = merged_df.to_json(orient='records')
+
+    return merged_data
+
+def merge_allBrand_reports(data):
+    # combine field Brand and Category into Brand_Category
+    for item in data:
+        item['Brand_Category'] = item['Brand'] +' '+ item['Category']
+    
+    data_df = pd.DataFrame(data)
+    merged_df = data_df.groupby('Brand_Category').agg({
+        'Brand': 'first',
+        'Category': 'first',
+        'NegativePostCount': 'sum',
+        'PositivePostCount': 'sum'
+    }).reset_index()
+
+    merged_df = merged_df.sort_values(by='PositivePostCount', ascending=False)
+
+    merged_data = merged_df.to_json(orient='records')
+
+    return merged_data

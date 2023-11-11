@@ -41,7 +41,10 @@ def get_own_popular():
     time_start = param['time_start']
     time_end = param['time_end']
 
-    return fetch_db.get_own_popular(brand_name, time_start, time_end)
+    data_own_popular = fetch_db.get_own_popular(brand_name, time_start, time_end)
+    data_own_popular = data_own_popular[:10]
+
+    return jsonify({'data_own_popular': data_own_popular})
 
 @app.route("/get_all_popular", methods=["POST"])
 def get_all_popular():
@@ -49,7 +52,10 @@ def get_all_popular():
     time_start = param['time_start']
     time_end = param['time_end']
 
-    return fetch_db.get_all_popular(time_start, time_end)
+    data_all_popular = fetch_db.get_all_popular(time_start, time_end)
+    data_all_popular = data_all_popular[:10]
+    
+    return jsonify({'data_all_popular': data_all_popular})
 
 @app.route("/get_recommendation", methods=["POST"])
 @nocache
@@ -61,7 +67,6 @@ def get_recommendation():
 
     recommendation = fetch_db.get_recommendation(brand_name, time_start, time_end)
 
-    # baru jd yg disarankan untuk diproduksi
     return recommendation
 
 @app.route("/login_validation", methods=["POST"])
