@@ -2,8 +2,10 @@ from datetime import datetime
 from functools import update_wrapper, wraps
 from flask import (Flask, jsonify, make_response, request)
 import fetch_db
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 def nocache(view):
     @wraps(view)
@@ -19,20 +21,20 @@ def nocache(view):
 
     return update_wrapper(no_cache, view)
 
-@app.route("/get_profile_account", methods=["GET"])
+@app.route("/get_profile_account", methods=["POST"])
 def get_profile():
     param = request.get_json()
     email = param['email']
     return fetch_db.get_profile(email)
 
-@app.route("/get_own_product", methods=["GET"])
+@app.route("/get_own_product", methods=["POST"])
 def get_own_product():
     param = request.get_json()
     brand_name = param['brand_name']
     
     return fetch_db.get_own_product(brand_name)
 
-@app.route("/get_own_popular", methods=["GET"])
+@app.route("/get_own_popular", methods=["POST"])
 def get_own_popular():
     param = request.get_json()
     brand_name = param['brand_name']
@@ -41,7 +43,7 @@ def get_own_popular():
 
     return fetch_db.get_own_popular(brand_name, time_start, time_end)
 
-@app.route("/get_all_popular", methods=["GET"])
+@app.route("/get_all_popular", methods=["POST"])
 def get_all_popular():
     param = request.get_json()
     time_start = param['time_start']
@@ -49,7 +51,7 @@ def get_all_popular():
 
     return fetch_db.get_all_popular(time_start, time_end)
 
-@app.route("/get_recommendation", methods=["GET"])
+@app.route("/get_recommendation", methods=["POST"])
 @nocache
 def get_recommendation():
     param = request.get_json()
@@ -62,7 +64,7 @@ def get_recommendation():
     # baru jd yg disarankan untuk diproduksi
     return recommendation
 
-@app.route("/login_validation", methods=["GET"])
+@app.route("/login_validation", methods=["POST"])
 def validate_account():
     param = request.get_json()
     email = param['email']
