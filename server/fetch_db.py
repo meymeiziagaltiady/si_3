@@ -34,11 +34,11 @@ def validate_account(email, password):
 
     if data:
         if data['password'] == password:
-            return jsonify({'isValidate':True, 'isInvalidPassword':False,'isInvalidEmail':False})
+            return jsonify({'isValid':True, 'isInvalidPassword':False,'isInvalidEmail':False})
         else:
-            return jsonify({'isValidate':False, 'isInvalidPassword':True,'isInvalidEmail':False})
+            return jsonify({'isValid':False, 'isInvalidPassword':True,'isInvalidEmail':False})
     else:
-        return jsonify({'isValidate':False, 'isInvalidPassword':False,'isInvalidEmail':True})
+        return jsonify({'isValid':False, 'isInvalidPassword':False,'isInvalidEmail':True})
 
 def get_all_popular(time_start, time_end):
     time_start = datetime.strptime(time_start, "%Y-%m-%dT%H:%M:%S.%fZ")
