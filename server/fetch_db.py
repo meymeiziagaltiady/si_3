@@ -121,9 +121,11 @@ def get_own_product(brand_name):
     return jsonify({'data_own_product': data_own_product})
 
 def get_recommendation(brand_name, time_start, time_end):
-    data_all_popular = Response.get_json(get_all_popular(time_start, time_end))
+    data_all_popular = get_all_popular(time_start, time_end)
     data_own_product = Response.get_json(get_own_product(brand_name))
-    data_own_popular = Response.get_json(get_own_popular(brand_name,time_start, time_end))
+    data_own_popular = get_own_popular(brand_name,time_start, time_end)
+
+    data_own_product = data_own_product['data_own_product']
 
     product_to_produce = get_product_to_procude(data_all_popular, data_own_product)
     product_to_remove = get_product_to_remove(data_own_popular)
