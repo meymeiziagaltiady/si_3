@@ -20,11 +20,13 @@ const Login = () => {
 
         if (response.ok) {
           const validationStatus = await response.json();
-          if (validationStatus.isValidate) {
+          if (validationStatus.isValid) {
             console.log('Login successful');
             navigate('/dashboard');
-          } else {
-            console.error('Invalid email or password');
+          } else if(validationStatus.isInvalidPassword) {
+            console.error('Invalid password');
+          } else if(validationStatus.isInvalidEmail){
+            console.error('Invalid email');
           }
         } else {
           console.error('Failed to validate account');
