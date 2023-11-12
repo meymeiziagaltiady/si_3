@@ -1,4 +1,31 @@
-1. cd server
-2. buat env
-3. instal requirements
-4. flask run
+# How to run
+
+## FE
+
+1. Open the folder.
+   ```console
+   cd frontend
+   ```
+3. Install dependencies.
+   ```console
+   npm i
+   ```
+
+5. Run.
+   ```console
+   npm run dev
+   ```
+
+## BE
+
+1. Open the folder.
+   ```console
+   cd server
+   ```
+
+2. Create python virtual environment.
+3. Install dependencies in requirements.txt.
+4. Run.
+   ```console
+   flask run
+   ```
