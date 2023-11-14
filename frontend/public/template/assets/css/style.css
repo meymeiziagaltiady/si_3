@@ -7912,7 +7912,7 @@ a.btn-theme.active {
 }
 
 .btn-success {
-  color: #ffff;
+  color: #fff;
   background-color: #1de9b6;
   border-color: #1de9b6;
 }
@@ -10707,8 +10707,6 @@ div.code-toolbar > .toolbar span:hover {
 	bottom: 50px;
 	opacity: 1
 }
-
-
 
 @-webkit-keyframes pulse {
 	0% {
