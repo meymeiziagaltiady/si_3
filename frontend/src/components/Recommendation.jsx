@@ -44,25 +44,33 @@ function RecommendationModals(props) {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            style={{color:'black'}}
+            style={{ color: 'black' }}
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Recommendations
+                <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: '20px', fontWeight:'bold' }}>
+                     Recommendations
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row>
                     <Col lg={3} className="d-flex justify-content-center">
-                        <Image src='/template/assets/images/supershy.png' fluid/>
+                        <Image src='/template/assets/images/supershy.png' />
                     </Col>
                     <Col>
                         <ul>
                             <li>
-                                <p>{recProduce}</p>
+                            <p className='mb-1 font-weight-bold text-uppercase'>{recProduce.toUpperCase()}</p>
+                                <div className="d-inline-flex align-items-start">
+                                    <i className="feather icon-info ml-4 pt-1 mt-1" style={{ color: 'grey' }}></i>
+                                    <p className="ml-2 pt-1" style={{ color: 'grey' }}>Because it has a low rank, high number of negative posts, and a significant difference between the amounts of positive and negative posts.</p>
+                                </div>
                             </li>
                             <li>
-                                <p>{recRemove}</p>
+                                <p className='mb-1 font-weight-bold text-uppercase'>{recRemove.toUpperCase()}</p>
+                                <div className="d-inline-flex align-items-start">
+                                    <i className="feather icon-info ml-4 pt-1 mt-1" style={{ color: 'grey' }}></i>
+                                    <p className="ml-2 pt-1" style={{ color: 'grey' }}>Because it has the highest ranking in all beauty brand.</p>
+                                </div>
                             </li>
                         </ul>
                     </Col>
@@ -72,7 +80,7 @@ function RecommendationModals(props) {
     );
 }
 
-function Recommendation({brand_name}) {
+function Recommendation({ brand_name }) {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
@@ -84,7 +92,7 @@ function Recommendation({brand_name}) {
             <RecommendationModals
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                brand_name ={brand_name}
+                brand_name={brand_name}
             />
         </>
     );
