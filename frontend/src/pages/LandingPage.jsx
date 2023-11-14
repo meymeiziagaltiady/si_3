@@ -35,8 +35,8 @@ const LandingPage = () => {
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     const params = {
-        time_start: formattedFirstDay,
-        time_end: formattedLastDay
+        time_start: startDate,
+        time_end: endDate
     };
 
     const fetchData = async () => {
