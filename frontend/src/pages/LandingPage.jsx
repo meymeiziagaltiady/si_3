@@ -38,8 +38,8 @@ const LandingPage = () => {
     const [endDate, setEndDate] = useState(new Date(formattedLastDay));
 
     const params = {
-        time_start: formattedFirstDay,
-        time_end: formattedLastDay
+        time_start: startDate,
+        time_end: endDate
     };
 
     const fetchData = async () => {
@@ -55,7 +55,7 @@ const LandingPage = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [startDate, endDate]);
 
     const totalTweetCount = data.reduce((total, item) => total + item.PositivePostCount + item.NegativePostCount, 0);
     const totalPositivePostCount = data.reduce((total, item) => total + item.PositivePostCount, 0);
