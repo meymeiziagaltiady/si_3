@@ -8,17 +8,13 @@ import axios from 'axios';
 const animatedComponents = makeAnimated();
 
 const options = [
-    { value: 'Facewash', label: 'Facewash' },
-    { value: 'Serum', label: 'Serum' },
-    { value: 'Sunscreen', label: 'Sunscreen' },
-    { value: 'Toner', label: 'Toner' },
-    { value: 'Lip Serum', label: 'Lip Serum' },
     { value: 'Moisturizer', label: 'Moisturizer' },
     { value: 'Cleanser', label: 'Cleanser' },
-    { value: 'SPF', label: 'SPF' },
     { value: 'Eye Cream', label: 'Eye Cream' },
     { value: 'Face Mask', label: 'Face Mask' },
-    { value: 'Facial Oils', label: 'Facial Oils' }
+    { value: 'Treatment', label: 'Treatment' },
+    { value: 'Eye Cream', label: 'Eye Model' },
+    { value: 'Sun Protect', label: 'Sun Protect' },
   ]
 
 const LandingPage = () => {
@@ -36,6 +32,7 @@ const LandingPage = () => {
 
     const [startDate, setStartDate] = useState(new Date(formattedFirstDay));
     const [endDate, setEndDate] = useState(new Date(formattedLastDay));
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     const params = {
         time_start: startDate,
@@ -43,19 +40,30 @@ const LandingPage = () => {
     };
 
     const fetchData = async () => {
-        axios.post('http://localhost:5000/get_all_popular',params)
-        .then((response)=>{
-            console.log('succeed');
-            setData(response.data.data_all_popular || [])
-        })
-        .catch((error)=>{
-            console.error('error', error);
-        });
+        axios.post('http://localhost:5000/get_all_popular', params)
+            .then((response) => {
+                console.log('succeed');
+                let filteredData = response.data.data_all_popular || [];
+
+                if (selectedCategories.length > 0) {
+                    const selectedCategoryValues = selectedCategories.map(
+                        (category) => category.value
+                    );
+                    filteredData = filteredData.filter((item) =>
+                        selectedCategoryValues.includes(item.Category)
+                    );
+                }
+
+                setData(filteredData);
+            })
+            .catch((error) => {
+                console.error('error', error);
+            });
     };
 
     useEffect(() => {
         fetchData();
-    }, [startDate, endDate]);
+    }, [startDate, endDate, selectedCategories]);
 
     const totalTweetCount = data.reduce((total, item) => total + item.PositivePostCount + item.NegativePostCount, 0);
     const totalPositivePostCount = data.reduce((total, item) => total + item.PositivePostCount, 0);
@@ -200,6 +208,7 @@ const LandingPage = () => {
                                                 border: '1px solid #1dc4e9',
                                                 }),
                                             }}
+                                            onChange={(selectedOption) => setSelectedCategories(selectedOption)}
                                         />
                                         </div>
                                     </div>
@@ -232,42 +241,6 @@ const LandingPage = () => {
                                 </div>
                             </div>
                             <div className="row">
-                                {/* <div className="col-md-6 col-xl-4">
-                                    <div className="card total-tweet">
-                                        <div className="card-block">
-                                        <h6 className="mb-4">Total Tweet</h6>
-                                        <div className="row d-flex align-items-center">
-                                            <div className="col-9">
-                                                <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="fab fa-twitter text-c-blue f-36 mr-3" /> {totalTweetCount}</h3>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 col-xl-4">
-                                    <div className="card positive-tweet">
-                                        <div className="card-block">
-                                            <h6 className="mb-4">Positive Tweet</h6>
-                                            <div className="row d-flex align-items-center">
-                                                <div className="col-9">
-                                                    <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-user-plus text-c-blue f-36 mr-3" /> {positivePercentage.toFixed(0)}%</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 col-xl-4">
-                                    <div className="card negative-tweet">
-                                        <div className="card-block">
-                                            <h6 className="mb-4">Negative Tweet</h6>
-                                            <div className="row d-flex align-items-center">
-                                                <div className="col-9">
-                                                    <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-user-minus text-c-red f-36 mr-3" /> {negativePercentage.toFixed(0)}%</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
                                 {/* [ list product ] starts*/}
                                 <div className="col-xl-12 col-md-6">
                                 <div className="card user-list">
@@ -297,10 +270,10 @@ const LandingPage = () => {
                                                             </div>
                                                         </div>
                                                         <div className="col-xl-2">
-                                                            <h6 className="align-items-center float-right tweet-count">
-                                                                {item.PositivePostCount + item.NegativePostCount} <span className="tweet-label">Tweet</span>
+                                                            <h6 className="align-items-center text tweet-count">
+                                                                {item.PositivePostCount} <span className="tweet-label">Positive Tweet</span>
                                                             </h6>
-                                                            <h6 className="align-items-center float-right positive-percentage">
+                                                            <h6 className="align-items-center text positive-percentage">
                                                                 {((item.PositivePostCount / (item.PositivePostCount + item.NegativePostCount)) * 100).toFixed(0)}% <span className="positive-label">Positive</span>
                                                             </h6>
                                                         </div>
