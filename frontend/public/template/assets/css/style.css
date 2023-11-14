@@ -128,37 +128,51 @@ strong {
 }
 
 .card.total-tweet {
-  width: 345%; 
-  height: 92%;
+  width: 35vw;
+  height: 28vh;
   border-radius: 10px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
-.card.positive-tweet {
-  width: 165%; 
-  max-width: 400px; 
+.card.positive-tweet,
+.card.negative-tweet {
+  width: 17vw;
+  max-width: 400px;
   border-radius: 10px;
   overflow: hidden;
 }
 
 .card.negative-tweet {
-  width: 165%; 
-  max-width: 400px; 
-  margin-left: 75px;
-  border-radius: 10px;
-  overflow: hidden;
+  margin-left: 6vw;
 }
 
 @media only screen and (max-width: 768px) {
   .card.positive-tweet,
   .card.negative-tweet,
-  .card.card.total-tweet {
+  .card.total-tweet {
     width: 100%;
-    max-width: none; 
+    max-width: none;
     margin-right: 0;
     margin-left: 0;
   }
 }
+
+/* @media screen and (min-resolution: 120dpi) {
+  .card.total-tweet {
+    width: 35vw;
+    height: 22vh;
+  }
+
+  .card.positive-tweet,
+  .card.negative-tweet {
+    width: 18vw;
+    max-width: 400px;
+  }
+
+  .card.negative-tweet {
+    margin-left: 6.5vw;
+  }
+} */
 
 .card.card-login {
   width: 200%; 
