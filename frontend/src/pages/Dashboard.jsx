@@ -296,7 +296,18 @@ const Dashboard = () => {
                                                                         <h4 className="align-items-center float-left"><strong>{index + 1}.</strong></h4>
                                                                     </div>
                                                                     <div className="col-xl-7">
-                                                                        <h6 className="align-items-center float-left">{item.ProductName}</h6>
+                                                                        <h6
+                                                                            className="align-items-center float-left"
+                                                                            style={{
+                                                                                overflow: 'hidden',
+                                                                                textOverflow: 'ellipsis',
+                                                                                whiteSpace: 'nowrap',
+                                                                                maxWidth: '100%',
+                                                                            }}
+                                                                            title={` ${item.ProductName}`}
+                                                                        >
+                                                                            {item.ProductName}
+                                                                        </h6>
                                                                         <div className="progress m-t-30 m-b-20" style={{ height: 6 }}>
                                                                             <div
                                                                                 className="progress-bar progress-c-theme"
