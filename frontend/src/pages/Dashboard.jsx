@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
+import Recommendation from '../components/Recommendation';
 
 const animatedComponents = makeAnimated();
 
@@ -172,6 +173,9 @@ const Dashboard = () => {
                                 Download
                             </a>
                         </li>
+                        <li className="nav-item">
+                           <Recommendation brand_name='CLINIQUE'/>
+                        </li>
                     </ul>
                 </div>
             </header>
@@ -292,7 +296,7 @@ const Dashboard = () => {
                                                                         <h4 className="align-items-center float-left"><strong>{index + 1}.</strong></h4>
                                                                     </div>
                                                                     <div className="col-xl-7">
-                                                                        <h6 className="align-items-center float-left">{item.Brand} {item.Category}</h6>
+                                                                        <h6 className="align-items-center float-left">{item.ProductName}</h6>
                                                                         <div className="progress m-t-30 m-b-20" style={{ height: 6 }}>
                                                                             <div
                                                                                 className="progress-bar progress-c-theme"
