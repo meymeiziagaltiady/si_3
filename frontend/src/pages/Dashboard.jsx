@@ -85,8 +85,8 @@ const Dashboard = () => {
     const totalTweetCount = data.reduce((total, item) => total + item.PositivePostCount + item.NegativePostCount, 0);
     const totalPositivePostCount = data.reduce((total, item) => total + item.PositivePostCount, 0);
     const totalNegativePostCount = data.reduce((total, item) => total + item.NegativePostCount, 0);
-    const positivePercentage = (totalPositivePostCount / totalTweetCount) * 100;
-    const negativePercentage = (totalNegativePostCount / totalTweetCount) * 100;
+    const positivePercentage = totalTweetCount === 0 ? 0 : (totalPositivePostCount / totalTweetCount) * 100;
+    const negativePercentage =  totalTweetCount === 0 ? 0 : (totalNegativePostCount / totalTweetCount) * 100;
 
     return (
         <div>
@@ -288,6 +288,7 @@ const Dashboard = () => {
                                                     <h5>Own Popular Product</h5>
                                                 </div>
                                                 <div className="card-block">
+                                                {data.length > 0 ? (
                                                     <div className="row">
                                                         {data.map((item, index) => (
                                                             <div className="col-xl-12" key={index}>
@@ -296,7 +297,18 @@ const Dashboard = () => {
                                                                         <h4 className="align-items-center float-left"><strong>{index + 1}.</strong></h4>
                                                                     </div>
                                                                     <div className="col-xl-7">
-                                                                        <h6 className="align-items-center float-left">{item.ProductName}</h6>
+                                                                        <h6
+                                                                            className="align-items-center float-left"
+                                                                            style={{
+                                                                                overflow: 'hidden',
+                                                                                textOverflow: 'ellipsis',
+                                                                                whiteSpace: 'nowrap',
+                                                                                maxWidth: '100%',
+                                                                            }}
+                                                                            title={` ${item.ProductName}`}
+                                                                        >
+                                                                            {item.ProductName}
+                                                                        </h6>
                                                                         <div className="progress m-t-30 m-b-20" style={{ height: 6 }}>
                                                                             <div
                                                                                 className="progress-bar progress-c-theme"
@@ -320,6 +332,11 @@ const Dashboard = () => {
                                                             </div>
                                                         ))}
                                                     </div>
+                                                ) : (
+                                                    <div className="text-center mt-3">
+                                                        No data available for the selected date range or category.
+                                                    </div>
+                                                )}
                                                 </div>
                                             </div>
                                         </div>
@@ -332,6 +349,7 @@ const Dashboard = () => {
                                                     <h5>All Popular Product</h5>
                                                 </div>
                                                 <div className="card-block">
+                                                {data.length > 0 ? (    
                                                     <div className="row">
                                                         {dataAll.map((item, index) => (
                                                             <div className="col-xl-12" key={index}>
@@ -364,6 +382,11 @@ const Dashboard = () => {
                                                             </div>
                                                         ))}
                                                     </div>
+                                                ) : (
+                                                <div className="text-center mt-3">
+                                                    No data available for the selected date range or category.
+                                                </div>
+                                                )}
                                                 </div>
                                             </div>
                                         </div>

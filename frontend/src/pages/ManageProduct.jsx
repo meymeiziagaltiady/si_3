@@ -85,7 +85,10 @@ const ManageProduct = () => {
                     <label>Navigation</label>
                 </li>
                 <li className="nav-item">
-                    <a href="/" className="nav-link "><span className="pcoded-micon"><i className="feather icon-home" /></span><span className="pcoded-mtext">Landing Page</span></a>
+                    <a href="/dashboard" className="nav-link ">
+                        <span className="pcoded-micon"><i className="feather icon-bar-chart" /></span>
+                        <span className="pcoded-mtext">Report</span>
+                    </a>
                 </li>
                 <li className="nav-item active">
                     <a href="/manageproduct" className="nav-link "><span className="pcoded-micon"><i className="feather icon-grid" /></span><span className="pcoded-mtext">Manage Product</span></a>
