@@ -85,8 +85,8 @@ const Dashboard = () => {
     const totalTweetCount = data.reduce((total, item) => total + item.PositivePostCount + item.NegativePostCount, 0);
     const totalPositivePostCount = data.reduce((total, item) => total + item.PositivePostCount, 0);
     const totalNegativePostCount = data.reduce((total, item) => total + item.NegativePostCount, 0);
-    const positivePercentage = (totalPositivePostCount / totalTweetCount) * 100;
-    const negativePercentage = (totalNegativePostCount / totalTweetCount) * 100;
+    const positivePercentage = totalTweetCount === 0 ? 0 : (totalPositivePostCount / totalTweetCount) * 100;
+    const negativePercentage =  totalTweetCount === 0 ? 0 : (totalNegativePostCount / totalTweetCount) * 100;
 
     return (
         <div>
@@ -288,6 +288,7 @@ const Dashboard = () => {
                                                     <h5>Own Popular Product</h5>
                                                 </div>
                                                 <div className="card-block">
+                                                {data.length > 0 ? (
                                                     <div className="row">
                                                         {data.map((item, index) => (
                                                             <div className="col-xl-12" key={index}>
@@ -331,6 +332,11 @@ const Dashboard = () => {
                                                             </div>
                                                         ))}
                                                     </div>
+                                                ) : (
+                                                    <div className="text-center mt-3">
+                                                        No data available for the selected date range or category.
+                                                    </div>
+                                                )}
                                                 </div>
                                             </div>
                                         </div>
@@ -343,6 +349,7 @@ const Dashboard = () => {
                                                     <h5>All Popular Product</h5>
                                                 </div>
                                                 <div className="card-block">
+                                                {data.length > 0 ? (    
                                                     <div className="row">
                                                         {dataAll.map((item, index) => (
                                                             <div className="col-xl-12" key={index}>
@@ -375,6 +382,11 @@ const Dashboard = () => {
                                                             </div>
                                                         ))}
                                                     </div>
+                                                ) : (
+                                                <div className="text-center mt-3">
+                                                    No data available for the selected date range or category.
+                                                </div>
+                                                )}
                                                 </div>
                                             </div>
                                         </div>
