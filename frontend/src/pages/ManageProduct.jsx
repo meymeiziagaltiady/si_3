@@ -102,7 +102,7 @@ const ManageProduct = () => {
                 <li className="nav-item pcoded-menu-caption">
                     <label>More Option</label>
                 </li>
-                <li className="nav-item"><a href="/login" className="nav-link "><span className="pcoded-micon"><i className="feather icon-log-in" /></span><span className="pcoded-mtext">Login</span></a></li>
+                <li className="nav-item"><a href="/" className="nav-link "><span className="pcoded-micon"><i className="feather icon-log-in" /></span><span className="pcoded-mtext">Log Out</span></a></li>
                 </ul>
             </div>
             </div>
@@ -120,14 +120,6 @@ const ManageProduct = () => {
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <div className="title">Manage Product</div>
-                    </li>
-                </ul>
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <a className="download" href="">
-                            <i className="feather icon-download" />
-                            Download
-                        </a>
                     </li>
                 </ul>
             </div>

@@ -59,14 +59,14 @@ function RecommendationModals(props) {
                     <Col>
                         <ul>
                             <li>
-                            <p className='mb-1 font-weight-bold text-uppercase'>{recProduce.toUpperCase()}</p>
+                            <p className='mb-1 font-weight-bold text-uppercase'>{recRemove.toUpperCase()}</p>
                                 <div className="d-inline-flex align-items-start">
                                     <i className="feather icon-info ml-4 pt-1 mt-1" style={{ color: 'grey' }}></i>
                                     <p className="ml-2 pt-1" style={{ color: 'grey' }}>Because it has a low rank, high number of negative posts, and a significant difference between the amounts of positive and negative posts.</p>
                                 </div>
                             </li>
                             <li>
-                                <p className='mb-1 font-weight-bold text-uppercase'>{recRemove.toUpperCase()}</p>
+                                <p className='mb-1 font-weight-bold text-uppercase'>{recProduce.toUpperCase()}</p>
                                 <div className="d-inline-flex align-items-start">
                                     <i className="feather icon-info ml-4 pt-1 mt-1" style={{ color: 'grey' }}></i>
                                     <p className="ml-2 pt-1" style={{ color: 'grey' }}>Because it has the highest ranking in all beauty brand.</p>

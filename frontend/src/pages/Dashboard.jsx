@@ -142,9 +142,9 @@ const Dashboard = () => {
                                 <label>More Option</label>
                             </li>
                             <li className="nav-item">
-                                <a href="/login" className="nav-link ">
+                                <a href="/" className="nav-link ">
                                     <span className="pcoded-micon"><i className="feather icon-log-in" /></span>
-                                    <span className="pcoded-mtext">Login</span>
+                                    <span className="pcoded-mtext">Log Out</span>
                                 </a>
                             </li>
                         </ul>

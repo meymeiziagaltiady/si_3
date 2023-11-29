@@ -103,9 +103,6 @@ const LandingPage = () => {
                     <li className="nav-item active">
                         <a href="" className="nav-link "><span className="pcoded-micon"><i className="feather icon-home" /></span><span className="pcoded-mtext">Landing Page</span></a>
                     </li>
-                    <li className="nav-item">
-                        <a href="/manageproduct" className="nav-link "><span className="pcoded-micon"><i className="feather icon-grid" /></span><span className="pcoded-mtext">Manage Product</span></a>
-                    </li>
                     <li className="nav-item pcoded-menu-caption">
                         <label>Support</label>
                     </li>
